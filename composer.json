@@ -1,0 +1,21 @@
+{
+    "name": "zhujinkui/tp5-phpqrcode",
+    "description": "This is a phpqrcode two-dimensional code generation based on ThinkPHP5 framework integration.",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "zhujinkui",
+            "email": "developer@zhujinkui.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "think\\": "src/"
+        }
+    }
+}
