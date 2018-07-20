@@ -102,24 +102,11 @@ namespace think;
         public static function log($outfile, $err)
         {
             if (QR_LOG_DIR !== false) {
-
-                if (!file_exists(QR_LOG_DIR)) {
-                    mkdir(QR_LOG_DIR, 0777);
-                }
-
                 if ($err != '') {
                     if ($outfile !== false) {
-                        $fp = fopen(QR_LOG_DIR . 'error.txt','a+');
-                        fwrite($fp,"\n ________xml________\n");
-                        fwrite($fp,var_export($err,true));
-                        fwrite($fp,'【 Now 】:  '. date("Y-m-d H:i:s") ."\n");
-                        fclose($fp);
+                        file_put_contents(QR_LOG_DIR.basename($outfile).'-errors.txt', date('Y-m-d H:i:s').': '.$err, FILE_APPEND);
                     } else {
-                        $fp = fopen(QR_LOG_DIR . 'error.txt','a+');
-                        fwrite($fp,"\n ________xml________\n");
-                        fwrite($fp,var_export($err,true));
-                        fwrite($fp,'【 Now 】:  '. date("Y-m-d H:i:s") ."\n");
-                        fclose($fp);
+                        file_put_contents(QR_LOG_DIR.'errors.txt', date('Y-m-d H:i:s').': '.$err, FILE_APPEND);
                     }
                 }
             }

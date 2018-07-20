@@ -69,15 +69,16 @@ class PHPQRImgCode
         $tmp_qrcode_file = $this->create_qrcode($data);
 
         // 合拼临时二维码图片与logo图片
-        $this->add_logo($tmp_qrcode_file);
+        $result = $this->add_logo($tmp_qrcode_file);
 
         // 删除临时二维码图片
         if($tmp_qrcode_file!='' && file_exists($tmp_qrcode_file)){
             unlink($tmp_qrcode_file);
         }
 
-        return file_exists($this->_config['dest_file'])? $this->_config['dest_file'] : '';
+        file_exists($this->_config['dest_file'])? $this->_config['dest_file'] : '';
 
+        return $result;
     }
 
     /**
@@ -159,22 +160,23 @@ class PHPQRImgCode
 
             // 生成图片
             switch($dest_ext) {
-                case 1: imagegif($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
-                case 2: imagejpeg($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
-                case 3: imagepng($dest_img, $this->_config['dest_file'], (int)(($this->_config['quality']-1)/10)); break;
+                case 1: $is_bool = imagegif($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
+                case 2: $is_bool = imagejpeg($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
+                case 3: $is_bool = imagepng($dest_img, $this->_config['dest_file'], (int)(($this->_config['quality']-1)/10)); break;
             }
-
-        // 不需要加入logo
         } else {
+            // 不需要加入logo
             $dest_img = imagecreatefrompng($tmp_qrcode_file);
 
             // 生成图片
             switch($dest_ext){
-                case 1: imagegif($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
-                case 2: imagejpeg($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
-                case 3: imagepng($dest_img, $this->_config['dest_file'], (int)(($this->_config['quality']-1)/10)); break;
+                case 1: $is_bool = imagegif($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
+                case 2: $is_bool = imagejpeg($dest_img, $this->_config['dest_file'], $this->_config['quality']); break;
+                case 3: $is_bool = imagepng($dest_img, $this->_config['dest_file'], (int)(($this->_config['quality']-1)/10)); break;
             }
         }
+
+        return $is_bool;
     }
 
     /**
