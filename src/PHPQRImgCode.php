@@ -89,7 +89,7 @@ class PHPQRImgCode
     private function create_qrcode($data)
     {
         // 临时二维码图片
-        $tmp_qrcode_file = dirname(__FILE__).'/tmp_qrcode_'.time().mt_rand(100,999).'.png';
+        $tmp_qrcode_file = QR_LOG_DIR .'/tmp_qrcode_'.time().mt_rand(100,999).'.png';
 
         // 创建临时二维码
         QRcode::png($data, $tmp_qrcode_file, $this->_config['ecc'], $this->_config['size'], 2);
